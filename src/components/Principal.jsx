@@ -3,7 +3,7 @@ import React from "react";
 import Opciones from "./Opciones";
 import Recordatorio from "./Recordatorio";
 
-const historial = [];
+let historial = [];
 // Cinco iteraciones. Primera con una opcion y el resto dia dos
 const largoArreglo = (historias.length + 1) / 2;
 
@@ -23,7 +23,7 @@ export default class Principal extends React.Component {
 
   // Se realiza despues del render al actualizar
   componentDidUpdate() {
-    historial.push(this.state.seleccionPrevia);
+    historial = [...historial ,this.state.seleccionPrevia];
   }
 
   handleClick(e) {
