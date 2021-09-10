@@ -3,10 +3,6 @@ import React from "react";
 import Opciones from "./Opciones";
 import Recordatorio from "./Recordatorio";
 
-let historial = [];
-// Cinco iteraciones. Primera con una opcion y el resto dia dos
-const largoArreglo = (historias.length + 1) / 2;
-
 export default class Principal extends React.Component {
 
   constructor(props) {
@@ -17,19 +13,21 @@ export default class Principal extends React.Component {
       historiaEnPantalla: historias[0].historia,
       opcionA: historias[0].opciones.a,
       opcionB: historias[0].opciones.b,
+      historial: []
     };
     this.handleClick = this.handleClick.bind(this)
   }
 
   // Se realiza despues del render al actualizar
   componentDidUpdate() {
-    historial = [...historial ,this.state.seleccionPrevia];
+    let {historial} = this.state;
+    historial = historial.push(this.state.seleccionPrevia);
   }
 
   handleClick(e) {
     const id = e.currentTarget.id;
 
-    if (this.state.cuento <= largoArreglo) {
+    if (this.state.cuento <= (historias.length + 1) / 2) {
       this.setState({
         cuento: this.state.cuento + 1,
         seleccionPrevia: id,
@@ -41,6 +39,7 @@ export default class Principal extends React.Component {
   }
 
   render() {
+    const {historial} = this.state;
     return (
       <div className="layout">
         <h1 className="historia">{this.state.historiaEnPantalla}</h1>
